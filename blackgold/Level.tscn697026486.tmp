@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://jhh05sl1tgdq"]
+
+[ext_resource type="Script" uid="uid://b2513bsmr41el" path="res://level.gd" id="1_2nifc"]
+[ext_resource type="PackedScene" uid="uid://dt1mxh6v3j0re" path="res://ennemy.tscn" id="2_t7iv1"]
+
+[sub_resource type="Gradient" id="Gradient_qhyq2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bexhn"]
+gradient = SubResource("Gradient_qhyq2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7iv1"]
+size = Vector2(310, 46)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(531, 437)
+script = ExtResource("1_2nifc")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3"]
+position = Vector2(0, 23)
+scale = Vector2(1.21094, 45.5)
+texture = SubResource("GradientTexture1D_bexhn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(0, 23)
+shape = SubResource("RectangleShape2D_t7iv1")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(341, -53)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
+position = Vector2(0, 23)
+scale = Vector2(1.21094, 45.5)
+texture = SubResource("GradientTexture1D_bexhn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0, 23)
+shape = SubResource("RectangleShape2D_t7iv1")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-343, -80)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0, 23)
+scale = Vector2(1.21094, 45.5)
+texture = SubResource("GradientTexture1D_bexhn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 23)
+shape = SubResource("RectangleShape2D_t7iv1")
+
+[node name="ennemy2" parent="." instance=ExtResource("2_t7iv1")]
+position = Vector2(391, -97)
+scale = Vector2(0.25, 0.25)
+
+[node name="ennemy" parent="." instance=ExtResource("2_t7iv1")]
+position = Vector2(-321, -145)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(19, -156)
