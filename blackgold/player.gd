@@ -2,40 +2,30 @@ extends CharacterBody2D
 class_name Player
 
 @export var gravity = 1500
-@export var speed = 300
-@export var acceleration = 0.3
+@export var speed = 700
+@export var acceleration = 3000  
+@export var friction = 2000       
 @export var jumpForce = 500
 var haveDoubleJump = false
 @onready var sprite = %AnimatedSprite2D
 
+var was_on_floor = false
+
 func _physics_process(delta):
-	#print("physique")
+	# Gravité
 	velocity.y = clamp(velocity.y + gravity * delta, -1000, 1000)
 
+	# Input horizontal
 	var direction = Input.get_axis("move_left","move_right")
 
-	velocity.x = lerp(velocity.x, direction * speed, acceleration)
-
 	if direction != 0:
+		velocity.x = move_toward(velocity.x, direction * speed, acceleration * delta)
 		sprite.flip_h = (direction == -1)
-		
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			velocity.y = -jumpForce
-			haveDoubleJump = true
-			#print(haveDoubleJump)
-			haveDoubleJump = true
-		
-		elif !is_on_floor() and haveDoubleJump == true:
-			velocity.y = -jumpForce
-			#print(haveDoubleJump) 
-			haveDoubleJump = false
-			#print(haveDoubleJump)
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
 
-	updateAnimation(direction)
 	move_and_slide()
-
-var was_on_floor = false
+	updateAnimation(direction)
 
 func updateAnimation(direction):
 	var just_landed = is_on_floor() and !was_on_floor
@@ -61,6 +51,5 @@ func updateAnimation(direction):
 	was_on_floor = is_on_floor()
 
 func die():
-	#print("mort")
 	get_parent().call_deferred("spawn_player")
 	queue_free()
